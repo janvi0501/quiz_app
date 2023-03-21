@@ -1,66 +1,104 @@
 datalist = [{}];
+quiz_data = [];
 
 const main_content = document.querySelector('#main_content');
 
 let que = document.getElementById("add_que");
-let count = 0;
+count = 0;
+j = 0;
 add_que.addEventListener('click', () =>{
   const main_div = document.createElement('div');
 
-  for (let i = 0; i < 1; i++) {
+  for (let i = 0; i < 6; i++) {
     count++;
+    j++;
     var input = document.createElement('input');
     input.type = 'text';
     input.setAttribute("class", "form-control");
-    input .setAttribute("placeholder", "ENTER YOUR QUE")
+    input .setAttribute("placeholder", i + 1 + ". ENTER YOUR QUE")
     input.name = count;
-    input.id = i;
+    input.id = j;
     main_div.appendChild(input);
   }
 
-  for (let i = 0; i < 4; i++) {
-    count++;
-    var input = document.createElement('input');
-    input.type = 'text';
-    input.setAttribute("class", "form-control");
-    input .setAttribute("placeholder", "ENTER YOUR OPTION")
-    input.name = count;
-    input.id = i;
-    main_div.appendChild(input);
-  }
+  // for (let i = 0; i < 4; i++) {
+  //   count++;
+  //   var input = document.createElement('input');
+  //   input.type = 'text';
+  //   input.setAttribute("class", "form-control");
+  //   input .setAttribute("placeholder", "ENTER YOUR OPTION")
+  //   input.name = count;
+  //   input.id = i;
+  //   main_div.appendChild(input);
+  // }
 
-  for (let i = 0; i < 1; i++) {
-    count++;
-    var input = document.createElement('input');
-    input.type = 'text';
-    input.setAttribute("class", "form-control");
-    input .setAttribute("placeholder", "ENTER YOUR ANS")
-    input.name = count;
-    input.id = "count"+count;
-    main_div.appendChild(input);
-  }
+  // for (let i = 0; i < 1; i++) {
+  //   count++;
+  //   var input = document.createElement('input');
+  //   input.type = 'text';
+  //   input.setAttribute("class", "form-control");
+  //   input .setAttribute("placeholder", "ENTER YOUR ANS")
+  //   input.name = count;
+  //   input.id = i;
+  //   main_div.appendChild(input);
+  // }
 
   main_content.appendChild(main_div);
 });
 
 submit_btn.addEventListener('click', () =>{
-     console.log('submit');
-
+    // console.log('submit');
+     var subject_data = document.getElementById('subject').value;
+     console.log('subject_data')
      var input = document.getElementsByTagName('input');
-
-      for(let i = 0; i < input.length ; i++){
-
-        var question = document.getElementById(i);
-        console.log(question.value);
-        var data = [{
-            question: question.value
-        }]
-
-        datalist.push(data)
-
-        console.log(datalist)
-    }
+     
     
+     let questionObject = {};
+     questionObject["quiz_data"] = {
+          quiz_name: subject_data, 
+          question: [],
+     }; 
+     let optionArray = [];
+     for (let i = 1; i < input.length; i++) {
+         var question_data = document.getElementById(i).value;
+         optionArray.push(question_data); 
+         var question_data = document.getElementById(i).value = "";
+     }
+
+     questionObject["quiz_data"]["question"].push(optionArray);
+        console.log("CHECKING QUIZ DATA : ", questionObject);
+        var data = [
+           {
+            que: question_data,
+          },
+        ];
+
+
+      // for(let i = 1; i < input.length ; i++){
+      //   //console.log('value of i =======>' , i);
+      //   var question = document.getElementById(i);
+      //   console.log(question.value);
+      //   // var data = [{
+      //   //     question: question.value
+      //   // }]
+
+      //   // datalist.push(data)
+
+      //   //  console.log('datalist====>',datalist)
+      // }
+      
+      // let quiz_data = {
+      //   "quiz_name": subject_data, 
+      //   "question": []
+      //  }
+  
+      //  datalist.push(quiz_data)
+      //  console.log('datalist====>',datalist)
+
+      datalist.push(data);
+        var userdata = JSON.stringify(datalist);
+      
+         console.log(datalist);
 });
 
 // datalist = [];
